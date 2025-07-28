@@ -1,0 +1,24 @@
+{
+  "subscription_id": "subscription-id",
+  "client_id": "app-id",
+  "client_secret": "client-secret",
+  "tenant_id": "tenant-id",
+  "vms": [ 
+    {
+      "name": "vm1",
+      "os_disk_name": "vm1-osdisk",
+      "size": "Standard_B2s",
+      "admin_username": "azureuser",
+      "ports": [22],
+      "ssh_public_key": "ssh-rsa AAAAB3NzaC1... user1@host"
+    },
+    {
+      "name": "vm2",
+      "os_disk_name": "vm2-osdisk",
+      "size": "Standard_B2s",
+      "admin_username": "azureuser",
+      "ports": [22, 3306, 8080],
+      "ssh_public_key": "ssh-rsa AAAAB3NzaC1... user1@host"
+    }
+  ]
+}
