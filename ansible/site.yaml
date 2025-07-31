@@ -1,0 +1,20 @@
+- name: Configure VM1 with Java
+  hosts: java_group
+  become: yes
+  tags: ['vm1']
+  roles:
+    - vm1
+
+- name: Configure VM2 with MySQL
+  hosts: mysql_group
+  become: yes
+  tags: ['vm2']
+  roles:
+    - vm2
+
+- name: Deploy eSchool web application
+  hosts: java_group
+  become: yes
+  tags: ['eschool']
+  roles:
+    - eschool
