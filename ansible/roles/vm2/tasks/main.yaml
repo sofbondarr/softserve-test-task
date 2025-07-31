@@ -1,0 +1,97 @@
+- name: Install MySQL server
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present
+    update_cache: true
+  become: true
+
+- name: Ensure pip and PyMySQL are installed
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present
+    update_cache: true
+  become: true
+
+- name: Install PyMySQL for Ansible MySQL modules
+  ansible.builtin.pip:
+    name: pymysql
+    executable: pip3
+  become: true
+
+- name: Ensure MySQL is running
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+  become: true
+
+- name: Ensure root uses mysql_native_password plugin
+  community.mysql.mysql_user:
+    name: root
+    host: localhost
+    plugin: mysql_native_password
+    password: "{{ mysql_root_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+  become: true
+
+- name: Wait for MySQL to accept connections
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: 3306
+    timeout: 30
+  become: true
+
+- name: Ensure eschool database exists
+  community.mysql.mysql_db:
+    name: eschool
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  become: true
+
+- name: Allow remote connections (bind to 0.0.0.0)
+  ansible.builtin.lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+  notify: Restart MySQL
+  become: true
+
+- name: Open port 3306 in UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: 3306
+    proto: tcp
+  become: true
+
+- name: Remove any old eschool_user definitions
+  community.mysql.mysql_user:
+    name: eschool_user
+    host: "{{ item }}"
+    state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  loop:
+    - 'localhost'
+    - '127.0.0.1'
+    - '51.144.144.58'
+    - '%'
+  become: true
+
+- name: Create eschool_user@'%' with rights ONLY on eschool
+  community.mysql.mysql_user:
+    name: eschool_user
+    password: "{{ mysql_user_password }}"
+    host: '%'
+    priv: "eschool.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  become: true
+
+- name: Restart MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+  become: true
