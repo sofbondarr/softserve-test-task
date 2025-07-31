@@ -1,0 +1,10 @@
+- name: Install systemd service for eSchool
+  ansible.builtin.template:
+    src: eSchool.service.j2
+    dest: /etc/systemd/system/eschool.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - daemon-reload
+    - restart-eschool

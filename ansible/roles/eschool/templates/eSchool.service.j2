@@ -1,0 +1,15 @@
+[Unit]
+Description=eSchool Spring Boot App
+After=network.target
+
+[Service]
+User={{ ansible_user }}
+WorkingDirectory=/home/{{ ansible_user }}/eSchool
+ExecStart=/usr/bin/java -jar /home/{{ ansible_user }}/eSchool/target/eschool.jar
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=eschool
+
+[Install]
+WantedBy=multi-user.target

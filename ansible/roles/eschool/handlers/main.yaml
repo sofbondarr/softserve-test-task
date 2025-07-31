@@ -1,0 +1,9 @@
+# roles/eschool/handlers/main.yaml
+- name: daemon-reload
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: restart-eschool
+  ansible.builtin.systemd:
+    name: eSchool.service
+    state: restarted
