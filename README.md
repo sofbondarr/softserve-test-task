@@ -62,7 +62,7 @@ Place your previously generated "subscription-id", "app-id", "client-secret", an
 
 > After completion, Terraform will output:
 >
-> * VM public IPs
+> * VMs' public IPs
 > * Admin usernames
 > * Paths to your SSH key files
 Which will be used to generate hosts.ini for Ansible
