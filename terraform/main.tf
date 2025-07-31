@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
   name     = "eschool-rg"
-  location = "East EU"
+  location = "West Europe"
 }
 
 module "network" {

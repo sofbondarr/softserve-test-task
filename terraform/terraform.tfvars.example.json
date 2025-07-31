@@ -8,17 +8,17 @@
       "name": "vm1",
       "os_disk_name": "vm1-osdisk",
       "size": "Standard_B2s",
-      "admin_username": "azureuser",
-      "ports": [22],
-      "ssh_public_key": "ssh-rsa AAAAB3NzaC1... user1@host"
+      "admin_username": "azureuser1",
+      "ports": [22, 3306, 8080],
+      "ssh_public_key": "ssh_key.pub"
     },
     {
       "name": "vm2",
       "os_disk_name": "vm2-osdisk",
       "size": "Standard_B2s",
-      "admin_username": "azureuser",
-      "ports": [22, 3306, 8080],
-      "ssh_public_key": "ssh-rsa AAAAB3NzaC1... user1@host"
+      "admin_username": "azureuser2",
+      "ports": [22, 3306],
+      "ssh_public_key": "ssh_key.pub"
     }
   ]
 }
