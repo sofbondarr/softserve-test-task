@@ -32,6 +32,7 @@ ssh-keygen -t ed25519 -f ~/.ssh/vm2_key -C "vm2_user" -N ""
 ## 2. Credentials 
 
 ! Your service principal must have **Contributor** rights on the target subscription !
+
 Place your previously generated "subscription-id", "app-id", "client-secret", and "tenant-id", in `terraform.tfvars.json` file as in  `terraform.tfvars.example.json`:
 
 ---
