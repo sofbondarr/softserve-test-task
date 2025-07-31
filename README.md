@@ -1,6 +1,6 @@
 ## eSchool
 
-This repository automates end-to-end deployment of a Java web application with a MySQL backend on Azure. It uses:
+This repository automates end-to-end deployment of Java Web application with connection to MySQL database to Azure. It uses:
 
 * **Terraform** to provision two Linux VMs: one for further application setup, one for MySQL.
 * **Ansible** to configure the VMs, install required packages, deploy the web application, and ensure the service is up.
